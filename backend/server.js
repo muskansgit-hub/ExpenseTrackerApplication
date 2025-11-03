@@ -17,6 +17,20 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB Connected'))
   .catch((err) => console.log('MongoDB Connection Error:', err));
 
+// Health check route
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Expense Tracker API is running!',
+    status: 'active',
+    endpoints: {
+      auth: '/api/auth',
+      income: '/api/income',
+      expense: '/api/expense',
+      dashboard: '/api/dashboard'
+    }
+  });
+});
+
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/income', require('./routes/income'));
